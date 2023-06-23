@@ -1,5 +1,5 @@
 # Create a fiile
-file{ '/tmp/school':
+file { '/tmp/school':
   ensure  => file,
   path    => '/tmp/shool',
   mode    => '0744',
