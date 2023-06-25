@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-ssh ubuntu@54.144.137.63 -i ~/.ssh/school.pub
+ssh ubuntu@54.164.201.219 -i ~/.ssh/school.pub
+
