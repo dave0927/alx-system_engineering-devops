@@ -4,20 +4,17 @@
 
 # function to extract domain and subdomain details from dig
 
-findRecords ()
+display_info ()
 {
-    r_type="$(dig "${2}"."${1}" | awk 'NR==14 { print $4 }')"
-    ip_add="$(dig "${2}"."${1}" | awk 'NR==14 { print $5 }')"
-
-    echo "The subdomain $2 is a $r_type record and points to $ip_add"
+    domain="$1"
+    subdomain="$2"
+    dig "$subdomain.$domain" | awk '/ANSWER SECTION:/{getline; printf "The subdomain %s is a %s record and points to %s\n", var, $4, $5}' var="$subdomain"
 }
 
-if [ "$#" -ne 2 ];
-then
-    findRecords "$1" "www"
-    findRecords "$1" "lb-01"
-    findRecords "$1" "web-01"
-    findRecords "$1" "web-02"
-else
-    findRecords "$1" "$2"
-fi
+for subdomain in "www" "lb-01" "web-01" "web-02"
+do
+    if [ -z "$2" ] || [ "$2" == "$subdomain" ] ;
+    then
+	display_info "$1" "$subdomain"
+    fi
+done
