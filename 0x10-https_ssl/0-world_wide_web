@@ -6,18 +6,18 @@
 
 findRecords ()
 {
-    r_type="$(dig ${2}.${1} | awk 'NR==14 { print $4 }')"
-    ip_add="$(dig ${2}.${1} | awk 'NR==14 { print $5 }')"
+    r_type="$(dig "${2}"."${1}" | awk 'NR==14 { print $4 }')"
+    ip_add="$(dig "${2}"."${1}" | awk 'NR==14 { print $5 }')"
 
     echo "The subdomain $2 is a $r_type record and points to $ip_add"
 }
 
 if [ "$#" -ne 2 ];
 then
-    findRecords $1 "www"
-    findRecords $1 "lb-01"
-    findRecords $1 "web-01"
-    findRecords $1 "web-02"
+    findRecords "$1" "www"
+    findRecords "$1" "lb-01"
+    findRecords "$1" "web-01"
+    findRecords "$1" "web-02"
 else
-    findRecords $1 $2
+    findRecords "$1" "$2"
 fi
