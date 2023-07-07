@@ -33,3 +33,18 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
+frontend coddingwithdawit.tech-frontend-http
+        bind *:80
+        mode http
+	      http-request set-header X-Forwarded-Proto http
+        default_backend coddingwithdawit-backend
+
+frontend coddingwithdawit.tech-frontend-https
+        bind *:443 ssl crt /etc/haproxy/certs/www.coddingwithdawit.tech.pem
+	      http-request set-header X-Forwarded-Proto https
+	      default_backend coddingwithdawit-backend
+
+backend coddingwithdawit-backend
+        balance roundrobin
+        server 206714-web-01 54.164.201.219:80 check
+        server 206714-web-02 54.84.14.126:80 check
