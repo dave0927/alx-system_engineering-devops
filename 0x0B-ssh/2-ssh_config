@@ -1,0 +1,8 @@
+# configure SSH server
+Host school
+    Hostname 3.90.80.220
+    User ubuntu
+    IdentityFile ~/.ssh/school
+
+    PasswordAuthentication no
+
